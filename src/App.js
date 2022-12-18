@@ -10,7 +10,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import BasicExample from './components/adding';
 function App() {
-  let arr=[true];
+  const [Arr, setArr] = useState(false);
   const popover = (
     <Popover id="popover-basic">
       <Popover.Header as="h3">Adding a movie</Popover.Header>
@@ -32,10 +32,10 @@ function App() {
   </div> }
   const [Aya, setAya] = useState(data);
  useEffect(() => {
-  setAya(Aya)
-  console.log("hihi")
-},arr);
-console.log("aya"+{...Aya})
+  setAya(data)
+ 
+},[Arr]);
+console.log(Aya)
   return (
     <div >
      
@@ -53,7 +53,8 @@ console.log("aya"+{...Aya})
       
       </div>})}
       </div>
-      <div><button onClick={()=>{arr=[arr[0]?arr[0]:!arr[0]]}}>heer</button></div>
+      <div><button onClick={()=>{setArr(!Arr); }}>heer</button></div>
+    {console.log(Arr)}
     </div>
   );
 }

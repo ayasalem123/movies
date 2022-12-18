@@ -9,13 +9,8 @@ function BasicExample() {
     const [State, setState] = useState([true]);
     const [value, setValue] = useState(3);
     const [Aya, setAya] = useState({data});
-    console.log(...data,{
-            img:"https://cn.i.cdn.ti-platform.com/content/20/the-amazing-world-of-gumball/showpage/za/gumball-carousel.a94b8e60.png",
-            name:"gumball",
-            description:"talks about gumball",
-            value:"1000000000000000000000000",
-          })
-    console.log({data})
+    
+   
     useEffect(()=>{
     setAya(prevState=>prevState , {
         img:"https://cn.i.cdn.ti-platform.com/content/20/the-amazing-world-of-gumball/showpage/za/gumball-carousel.a94b8e60.png",
