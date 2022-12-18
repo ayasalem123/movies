@@ -1,7 +1,18 @@
+.all{
+  
+}
+#movie{
+  height: auto;
+  border: thick double black;
+  border-radius: 20px;
+  background-color: palevioletred;
+}
 .App {
+  margin-left: 100px;
   text-align: center;
   display: grid;
   grid-template-columns: auto auto auto auto;
+  justify-content:space-between
 }
 
 .App-logo {

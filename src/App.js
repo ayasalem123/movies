@@ -3,58 +3,74 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Movie from './components/movie';
 import data from './data';
+import ValueRate from './components/valueRating'
 import Rating from '@mui/material/Rating';
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import BasicExample from './components/adding';
+import Search from './components/input'
 function App() {
-  const [Arr, setArr] = useState(false);
+  let arr=[true];
+  const [value, setValue] = useState("");
+  const [valueRating, setValueRating] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [filteredArr, setFilteredArr] = useState(movies);
+  useEffect(() => {
+    setFilteredArr(movies)
+  },[movies.length])
+  useEffect(() => {
+    let NewfilteredArr = movies.filter(el => el.name.startsWith(value));
+    setFilteredArr(NewfilteredArr)
+  },[value])
+
+
+  useEffect(() => {
+    let NewfilteredArr = movies.filter(el => el.value>=valueRating);
+    setFilteredArr(NewfilteredArr)
+  },[valueRating])
+
+
+  // console.log(filteredArr)
+  const addMovie = (movie) => {
+    let newMovies = [...movies,movie]
+    setMovies(newMovies)
+  }
+  // console.log(movies)
+  useEffect(() => {
+    setMovies(data)
+  },[])
   const popover = (
     <Popover id="popover-basic">
       <Popover.Header as="h3">Adding a movie</Popover.Header>
       <Popover.Body>
-        <BasicExample></BasicExample>
+        <BasicExample addMovieHandler={addMovie}></BasicExample>
       </Popover.Body>
     </Popover>
   );
   
   const Example = () => (
     <OverlayTrigger trigger="click" placement="right" overlay={popover} >
-      <Button variant="success">Add a movie</Button>
+      <Button variant="success">non movie</Button>
     </OverlayTrigger>
   );
-
-  const [value, setValue] = useState(null);
-  const add=()=>{return<div>
-    hi
-  </div> }
-  const [Aya, setAya] = useState(data);
- useEffect(() => {
-  setAya(data)
- 
-},[Arr]);
-console.log(Aya)
   return (
-    <div >
-     
+    <div className="all">
+      <Search setVal={setValue}></Search>
+      <ValueRate setValueRating={setValueRating} />
+      {/* { console.log(value)} */}
       {Example()}
       <div className="App">
-      {Aya.map((el)=>{
-      return <div><Movie data={el}></Movie>
+      {filteredArr.map((el)=>{
+      return <div id="movie"><Movie data={el}></Movie>
       <Rating
         name="simple-controlled"
         value={el.value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+        
       />
-      
       </div>})}
-      </div>
-      <div><button onClick={()=>{setArr(!Arr); }}>heer</button></div>
-    {console.log(Arr)}
+      </div>  
     </div>
   );
 }

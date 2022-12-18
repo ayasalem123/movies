@@ -10,7 +10,6 @@ function Movie(props) {
         <Card.Text>
         {props.data.description}
         </Card.Text>
-        <Button variant="primary"></Button>
       </Card.Body>
     </Card>
   );
