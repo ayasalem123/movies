@@ -24,23 +24,18 @@ function App() {
     setFilteredArr(movies)
   },[movies.length])
   useEffect(() => {
-    let NewfilteredArr = movies.filter(el => el.name.startsWith(value));
+    let NewfilteredArr = movies.filter(el => el.name.trim().toLocaleLowerCase().includes(value) && el.value>=valueRating);
     setFilteredArr(NewfilteredArr)
-  },[value])
+  },[value,valueRating])
 
 
-  useEffect(() => {
-    let NewfilteredArr = movies.filter(el => el.value>=valueRating);
-    setFilteredArr(NewfilteredArr)
-  },[valueRating])
 
-
-  // console.log(filteredArr)
   const addMovie = (movie) => {
     let newMovies = [...movies,movie]
     setMovies(newMovies)
   }
-  // console.log(movies)
+
+  console.log(movies)
   useEffect(() => {
     setMovies(data)
   },[])
@@ -61,7 +56,7 @@ function App() {
   return (
     <div className="all">
       <Routes>
-      <Route path="/hi/:id" element={<Hi></Hi>}></Route>
+      <Route path="/hi/:id" element={<Hi filteredArr={filteredArr} ></Hi>}></Route>
       <Route path="/" element={
       <div>
         <Search setVal={setValue}></Search>
@@ -70,8 +65,6 @@ function App() {
       {Example()}
       <div className="App">
       {filteredArr.map((el,i)=>{
-        let s="/hi/"+i
-        console.log(s)
       return <div id="movie"><Movie data={el}></Movie>
       <Rating
         name="simple-controlled"
@@ -79,8 +72,7 @@ function App() {
         
       />
       {console.log(i)}
-    
-      <Link to={s} ><button >select</button></Link>
+  
       </div>})}
       </div> 
       </div>}></Route>

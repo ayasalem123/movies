@@ -1,8 +1,8 @@
 import Form from 'react-bootstrap/Form';
+import { v4 as uuidv4 } from 'uuid';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Drop from './drop'
 import Rating from '@mui/material/Rating';
-import data from '../data';
 import React, { useState , useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 function BasicExample({addMovieHandler}) {
@@ -10,25 +10,17 @@ function BasicExample({addMovieHandler}) {
     const [State, setState] = useState([true]);
     const [value, setValue] = useState(3);
     const [movieTest, setMovieTest] = useState({});
-    const[emptyObject,setEmptyObject]=useState({})
+    const[emptyObject,setEmptyObject]=useState({id:uuidv4()})
     useEffect(()=>{
       setMovieTest(emptyObject)
     },[emptyObject])
    const handleChange=(event)=>{
-    let newobj={...emptyObject,name:event.target.value}
+    let newobj={...emptyObject,[event.target.name]:event.target.value}
     setEmptyObject(newobj)
     
    }
-   const handleChange3=(event)=>{
-    let newobj={...emptyObject,img:event.target.value}
-    setEmptyObject(newobj)
-    
-   }
-   const handleChange1=(event)=>{
-    let newobj={...emptyObject,description:event.target.value}
-    setEmptyObject(newobj)
-    
-   }
+ 
+
   //  console.log(emptyObject)
 
   return (
@@ -43,8 +35,9 @@ function BasicExample({addMovieHandler}) {
       </InputGroup>
 
       <InputGroup className="mb-3">
-      <InputGroup.Text id="basic-addon2" >Name:</InputGroup.Text>
+      <InputGroup.Text id="basic-addon2"   >Name:</InputGroup.Text>
         <Form.Control
+        name="name"
           placeholder="name of the movie"
           aria-label="movie's username"
           aria-describedby="basic-addon2"
@@ -55,16 +48,22 @@ function BasicExample({addMovieHandler}) {
 
       <Form.Label htmlFor="basic-url">description</Form.Label>
       <InputGroup className="mb-3">
-        <Form.Control onChange={handleChange1} id="basic-url" aria-describedby="basic-addon3" />
+        <Form.Control  name="description" onChange={handleChange} id="basic-url" aria-describedby="basic-addon3" />
       </InputGroup>
       <InputGroup>
     <Drop></Drop>
       </InputGroup>
       <InputGroup className="mb-3">
         <InputGroup.Text>image:</InputGroup.Text>
-        <Form.Control onChange={handleChange3} aria-label="Amount (to the nearest dollar)" />
+        <Form.Control name="img" onChange={handleChange} aria-label="Amount (to the nearest dollar)" />
         <InputGroup.Text>link</InputGroup.Text>
       </InputGroup>
+      <InputGroup className="mb-3">
+        <InputGroup.Text>trailor:</InputGroup.Text>
+        <Form.Control onChange={handleChange} name="src" aria-label="Amount (to the nearest dollar)" />
+        <InputGroup.Text>link</InputGroup.Text>
+      </InputGroup>
+
 
       <InputGroup>
       <Rating
